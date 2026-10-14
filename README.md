@@ -1,10 +1,10 @@
-# NEUFood - Campus Food Delivery System 🍔🚀
+# NEUFood - Campus Food Delivery System
 
 Hệ thống đặt và giao đồ ăn nội bộ khuôn viên trường Đại học Kinh tế Quốc dân (NEU). Dành cho sinh viên, giảng viên và cán bộ nhân viên NEU với tốc độ giao hàng nhanh, tích hợp trợ lý AI gợi ý món ăn, theo dõi đơn hàng thời gian thực và cổng quản lý bán hàng (Admin Portal).
 
 ---
 
-## 🏗️ Cấu Trúc Dự Án (Project Structure)
+##  Cấu Trúc Dự Án (Project Structure)
 
 ```text
 [NeuFood]/
@@ -169,35 +169,3 @@ cd frontend
 npm ci
 npm run dev
 ```
-
-Mở địa chỉ được Vite hiển thị trong terminal, mặc định là [http://localhost:5173](http://localhost:5173). Giữ terminal này chạy trong lúc demo; nhấn `Ctrl+C` để dừng.
-
-Để kiểm tra bản build trước khi demo, chạy trong thư mục `frontend`:
-
-```bash
-npm run build
-npm run preview
-```
-
-Giao diện có thể mở độc lập, nhưng các chức năng cần dữ liệu từ API (ví dụ đăng nhập, tải món ăn hoặc thao tác đơn hàng) sẽ không hoạt động đầy đủ nếu backend không chạy. Frontend mặc định gọi API tại `http://localhost:5000/api/v1`; có thể thay đổi bằng biến `VITE_API_BASE_URL` trong file `frontend/.env`.
-
-### Chạy toàn bộ hệ thống bằng Docker Compose
-
-```bash
-docker compose up --build -d
-```
-- **Frontend**: [http://localhost:5173](http://localhost:5173)
-- **Backend API**: [http://localhost:5000/api/v1](http://localhost:5000/api/v1)
-- **PostgreSQL**: `localhost:5432` (User: `neufood_user`, DB: `neufood_db`)
-
-### Chạy thủ công các thành phần
-Xem hướng dẫn chi tiết tại [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md).
-
----
-
-## 📚 Tài Liệu Kỹ Thuật (Documentation)
-
-- [Tài liệu Kiến Trúc Hệ Thống (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md)
-- [Đặc tả REST API Endpoints (docs/API_DOCUMENTATION.md)](docs/API_DOCUMENTATION.md)
-- [Hướng dẫn Cài Đặt Chi Tiết (docs/GETTING_STARTED.md)](docs/GETTING_STARTED.md)
-- [Thiết kế Cơ sở Dữ liệu & ERD (database/README.md)](database/README.md)
