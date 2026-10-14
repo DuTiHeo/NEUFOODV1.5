@@ -37,7 +37,7 @@ export default function CanteenDonPage() {
         <div style={{ background: '#ffffff', borderRadius: '12px', padding: '18px 20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: 600 }}>Chờ xác nhận (10p)</span>
-            <span style={{ background: '#fef3c7', color: '#d97706', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>BR-15</span>
+            <span style={{ background: '#fef3c7', color: '#d97706', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>Ưu tiên</span>
           </div>
           <p style={{ fontSize: '1.875rem', fontWeight: 800, color: awaitingOrders.length > 0 ? '#ef4444' : '#0f172a', margin: '8px 0 0' }}>
             {awaitingOrders.length}
@@ -269,7 +269,7 @@ export default function CanteenDonPage() {
                       }}
                     >
                       <Check size={18} />
-                      Hoàn tất nấu &amp; Báo sẵn sàng (UC22)
+                      Hoàn tất nấu &amp; Báo sẵn sàng
                     </button>
                   </div>
                 ))}
@@ -284,7 +284,7 @@ export default function CanteenDonPage() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Package size={18} color="#059669" />
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#0f172a' }}>3. Bàn giao đơn (UC23)</h3>
+                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#0f172a' }}>3. Bàn giao đơn</h3>
               </div>
               <span style={{ background: '#ecfdf5', color: '#047857', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700 }}>
                 {readyOrders.length} đơn
@@ -312,10 +312,12 @@ export default function CanteenDonPage() {
                         Khách: {ord.customerName} ({ord.customerPhone})
                       </p>
 
-                      {/* COD Advance Warning for Canteen (BR-34) */}
+                      {/* COD Advance Warning for Canteen */}
                       {!isAtCanteen && ord.paymentMethod === 'cod' ? (
                         <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '6px', padding: '8px 10px', marginBottom: '10px', fontSize: '0.75rem', color: '#92400e' }}>
-                          <strong>⚠️ ĐƠN COD (BR-34):</strong> Shipper phải thanh toán trước tiền món <strong>{formatPrice(ord.subtotal)}</strong> cho Canteen khi nhận hàng!
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontWeight: 700 }}>
+                            <AlertTriangle size={14} color="#d97706" /> Đơn COD:
+                          </span> Shipper cần ứng trước tiền món <strong>{formatPrice(ord.subtotal)}</strong> khi nhận hàng.
                         </div>
                       ) : null}
 
@@ -342,8 +344,8 @@ export default function CanteenDonPage() {
                         <div>
                           {hasShipper ? (
                             <div>
-                              <p style={{ margin: '0 0 8px', fontSize: '0.75rem', color: '#047857' }}>
-                                ✓ Shipper nhận: <strong>{ord.shipperName}</strong> ({ord.shipperPhone})
+                              <p style={{ margin: '0 0 8px', fontSize: '0.75rem', color: '#047857', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <Check size={14} /> Shipper nhận: <strong>{ord.shipperName}</strong> ({ord.shipperPhone})
                               </p>
                               <button
                                 type="button"
@@ -387,7 +389,7 @@ export default function CanteenDonPage() {
           <div style={{ background: '#ffffff', borderRadius: '12px', maxWidth: '400px', width: '100%', padding: '24px' }}>
             <h3 style={{ margin: '0 0 10px', color: '#b91c1c' }}>Từ chối đơn #{rejectModalOrder.code}</h3>
             <p style={{ fontSize: '0.8125rem', color: '#64748b', marginBottom: '14px' }}>
-              Nếu từ chối, đơn sẽ bị hủy và tiền thanh toán online sẽ được hoàn 100% cho khách (BR-17).
+              Nếu từ chối, đơn sẽ bị hủy và tiền thanh toán online sẽ được hoàn 100% cho khách.
             </p>
 
             <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '6px' }}>

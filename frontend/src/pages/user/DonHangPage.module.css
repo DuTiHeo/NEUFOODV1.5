@@ -90,7 +90,7 @@
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.025em;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .lead {
@@ -98,7 +98,7 @@
   max-width: 28rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: var(--color-muted);
+  color: #334155;
 }
 
 .track {
@@ -291,7 +291,7 @@
 .drvName {
   margin: 0;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .shipBtns {
@@ -343,7 +343,7 @@
   font-family: var(--font-headline);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .items {
@@ -379,13 +379,13 @@
 .rowName {
   margin: 0 0 0.25rem;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .rowNote {
   margin: 0;
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: #475569;
 }
 
 .rowFoot {
@@ -398,13 +398,13 @@
 .qty {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-muted);
+  color: #475569;
   font-family: var(--font-label);
 }
 
 .price {
   font-weight: 700;
-  color: var(--color-brand);
+  color: #0f172a;
 }
 
 .bill {
@@ -419,7 +419,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: #475569;
 }
 
 .billTotal {
@@ -428,11 +428,11 @@
   padding-top: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .billSum {
-  color: var(--color-brand);
+  color: #0f172a;
 }
 
 .info {
@@ -465,20 +465,20 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: #475569;
   font-family: var(--font-label);
 }
 
 .infoTxt {
   margin: 0;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #0f172a;
 }
 
 .infoSub {
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: #475569;
 }
 
 .act2 {
@@ -626,27 +626,4 @@
 .reviewToastIco {
   font-size: 1.25rem;
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-@media (prefers-color-scheme: dark) {
-  .glass {
-    border-color: rgb(255 255 255 / 0.08);
-    background-color: rgb(15 23 42 / 0.75);
-  }
-
-  .drvName,
-  .title,
-  .rowName,
-  .infoTxt,
-  .cardTitle,
-  .billTotal {
-    color: #f1f5f9;
-  }
-
-  .lead,
-  .rowNote,
-  .infoSub,
-  .billRow {
-    color: #94a3b8;
-  }
 }

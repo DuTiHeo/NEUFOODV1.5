@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { X } from 'lucide-react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -44,7 +45,7 @@ export const Modal: React.FC<ModalProps> = ({
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg"
             >
-              ✕
+              <X size={18} />
             </button>
           </div>
         )}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useNeuEngine } from '../../hooks/useNeuEngine'
-import { Layers, RotateCcw, Zap, ChevronUp, ChevronDown, Check, ShieldAlert } from 'lucide-react'
+import { Layers, RotateCcw, Zap, ChevronUp, ChevronDown, Check, ShieldAlert, GraduationCap, Store, Bike, ShieldCheck } from 'lucide-react'
 
 export default function DemoRoleSwitcher() {
   const navigate = useNavigate()
@@ -29,9 +29,9 @@ export default function DemoRoleSwitcher() {
         { dishId: 'tra-sua', name: 'Trà Sữa Trân Châu', price: 35000, qty: 1 },
       ],
       paymentMethod: 'cod',
-      note: 'Demo kịch bản ứng tiền COD (BR-34, BR-35)',
+      note: 'Demo kịch bản ứng tiền COD',
     })
-    triggerToast('⚡ Đã tạo 1 đơn COD 92k giao lên P402-A2!')
+    triggerToast('Đã tạo 1 đơn COD 92k giao lên P402-A2!')
   }
 
   function handleSimulateBoomOrder() {
@@ -45,14 +45,14 @@ export default function DemoRoleSwitcher() {
       paymentMethod: 'cod',
       note: 'Demo Boom hàng',
     })
-    shipperReportIncident(newOrd.id, 'Khách hàng không nghe máy sau 5 phút chờ (EX-36)')
-    triggerToast('🚨 Đã mô phỏng Boom hàng! Tài khoản khách đã bị đưa vào Blacklist COD (BR-36).')
+    shipperReportIncident(newOrd.id, 'Khách hàng không nghe máy sau 5 phút chờ')
+    triggerToast('Đã mô phỏng Boom hàng! Tài khoản khách đã bị hạn chế phương thức COD.')
   }
 
   function handleReset() {
     if (window.confirm('Khôi phục toàn bộ dữ liệu mẫu (LocalStorage) về trạng thái ban đầu?')) {
       resetAllToSeed()
-      triggerToast('🔄 Đã làm mới toàn bộ dữ liệu mẫu ban đầu!')
+      triggerToast('Đã làm mới toàn bộ dữ liệu mẫu ban đầu!')
     }
   }
 
@@ -135,16 +135,20 @@ export default function DemoRoleSwitcher() {
                 style={{
                   padding: '8px 10px',
                   borderRadius: '8px',
-                  border: pathname === '/' || pathname.startsWith('/menu') || pathname.startsWith('/don-hang') ? '2px solid #881337' : '1px solid #cbd5e1',
-                  background: pathname === '/' ? '#fff1f2' : '#ffffff',
-                  color: '#881337',
+                  border: pathname === '/' || pathname.startsWith('/menu') || pathname.startsWith('/don-hang') ? '2px solid #059669' : '1px solid #cbd5e1',
+                  background: pathname === '/' ? '#ecfdf5' : '#ffffff',
+                  color: '#047857',
                   fontWeight: 700,
                   fontSize: '0.75rem',
                   cursor: 'pointer',
                   textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                🎓 Khách hàng (/)
+                <GraduationCap size={15} />
+                <span>Khách hàng (/)</span>
               </button>
 
               <button
@@ -160,9 +164,13 @@ export default function DemoRoleSwitcher() {
                   fontSize: '0.75rem',
                   cursor: 'pointer',
                   textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                🍳 Canteen {pendingCanteen > 0 ? `(${pendingCanteen} mới)` : ''}
+                <Store size={15} />
+                <span>Canteen {pendingCanteen > 0 ? `(${pendingCanteen} mới)` : ''}</span>
               </button>
 
               <button
@@ -178,9 +186,13 @@ export default function DemoRoleSwitcher() {
                   fontSize: '0.75rem',
                   cursor: 'pointer',
                   textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                🛵 Shipper {poolShipper > 0 ? `(${poolShipper} đơn)` : ''}
+                <Bike size={15} />
+                <span>Shipper {poolShipper > 0 ? `(${poolShipper} đơn)` : ''}</span>
               </button>
 
               <button
@@ -196,9 +208,13 @@ export default function DemoRoleSwitcher() {
                   fontSize: '0.75rem',
                   cursor: 'pointer',
                   textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                🛡️ System Admin
+                <ShieldCheck size={15} />
+                <span>System Admin</span>
               </button>
             </div>
 

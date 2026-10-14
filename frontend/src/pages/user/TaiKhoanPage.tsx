@@ -30,7 +30,7 @@ export default function TaiKhoanPage() {
   const [email, setEmail] = useState(activeUser.email)
   const [faculty, setFaculty] = useState('Viện CNTT & Kinh tế số NEU')
 
-  // Default campus delivery location (BR-08, BR-09)
+  // Default campus delivery location
   const [defaultBuilding, setDefaultBuilding] = useState('A2')
   const [defaultFloor, setDefaultFloor] = useState(4)
   const [defaultRoom, setDefaultRoom] = useState('P402')
@@ -46,7 +46,7 @@ export default function TaiKhoanPage() {
     setEmail(activeUser.email)
   }, [selectedUserId, activeUser])
 
-  // Handle Save Profile (UC04)
+  // Handle Save Profile
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -106,10 +106,10 @@ export default function TaiKhoanPage() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <div>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', margin: '0 0 6px' }}>
-            Quản lý Thông tin Cá nhân (UC04)
+            Quản lý Thông tin Cá nhân
           </h1>
           <p style={{ margin: 0, fontSize: '0.875rem', color: '#64748b' }}>
-            Hồ sơ sinh viên NEU và địa chỉ nhận hàng mặc định trong campus (BR-01, BR-02, BR-28).
+            Hồ sơ sinh viên NEU và địa chỉ nhận hàng mặc định trong khuôn viên trường.
           </p>
         </div>
         <span style={{ fontSize: '0.8125rem', color: '#059669', background: '#ecfdf5', padding: '6px 12px', borderRadius: '8px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -117,7 +117,7 @@ export default function TaiKhoanPage() {
         </span>
       </div>
 
-      {/* Profile Role Switcher (For testing BR-32 & BR-36 Blacklist COD) */}
+      {/* Profile Role Switcher */}
       <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px', border: '1px dashed #cbd5e1', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <User size={18} color="#0284c7" />
@@ -156,7 +156,7 @@ export default function TaiKhoanPage() {
               color: selectedUserId === 'user_boom' ? '#b91c1c' : '#475569',
             }}
           >
-            Trần Văn Boom (Bị khóa Blacklist COD - BR-32)
+            Trần Văn Boom (Tạm khóa thanh toán COD)
           </button>
         </div>
       </div>
@@ -181,12 +181,12 @@ export default function TaiKhoanPage() {
             </div>
           </div>
 
-          {/* COD Status Banner (BR-32, BR-36) */}
+          {/* COD Status Banner */}
           <div style={{ marginBottom: '20px', padding: '12px 14px', borderRadius: '8px', background: activeUser.isCodBlacklisted ? '#fef2f2' : '#f0fdf4', border: `1px solid ${activeUser.isCodBlacklisted ? '#fecaca' : '#bbf7d0'}` }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
               {activeUser.isCodBlacklisted ? <ShieldAlert size={18} color="#dc2626" /> : <ShieldCheck size={18} color="#16a34a" />}
               <strong style={{ fontSize: '0.875rem', color: activeUser.isCodBlacklisted ? '#991b1b' : '#166534' }}>
-                {activeUser.isCodBlacklisted ? 'Tài khoản bị khóa Blacklist COD (BR-32)' : 'Quyền thanh toán COD: Bình thường (BR-33)'}
+                {activeUser.isCodBlacklisted ? 'Tài khoản tạm khóa thanh toán COD' : 'Quyền thanh toán COD: Hoạt động bình thường'}
               </strong>
             </div>
             <p style={{ margin: 0, fontSize: '0.75rem', color: activeUser.isCodBlacklisted ? '#7f1d1d' : '#14532d', lineHeight: 1.5 }}>
@@ -279,19 +279,19 @@ export default function TaiKhoanPage() {
                 gap: '8px',
               }}
             >
-              <Save size={16} /> Lưu Thay Đổi Thông Tin (UC04)
+              <Save size={16} /> Lưu Thay Đổi Thông Tin
             </button>
           </form>
         </div>
 
         {/* Right Column: Default Location & Quick Links */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {/* Default Location Card (BR-08, BR-09, BR-12) */}
+          {/* Default Location Card */}
           <div style={{ background: '#ffffff', borderRadius: '14px', border: '1px solid #e2e8f0', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
               <MapPin size={20} color="#b91c1c" />
               <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: '#0f172a' }}>
-                Địa điểm giao hàng mặc định tại NEU (BR-08, BR-09)
+                Địa điểm giao hàng mặc định tại NEU
               </h3>
             </div>
             <p style={{ margin: '0 0 16px', fontSize: '0.8125rem', color: '#64748b' }}>
@@ -359,7 +359,7 @@ export default function TaiKhoanPage() {
             </div>
 
             <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '6px', fontSize: '0.75rem', color: '#64748b', marginBottom: '14px' }}>
-              Phí ship giao nội khu dự kiến: <strong>{defaultBuilding === 'A2' ? '7.000đ' : defaultBuilding === 'A1' ? '8.000đ' : defaultBuilding === 'D' ? '10.000đ' : '9.000đ'}</strong> (BR-12).
+              Phí ship giao nội khu dự kiến: <strong>{defaultBuilding === 'A2' ? '7.000đ' : defaultBuilding === 'A1' ? '8.000đ' : defaultBuilding === 'D' ? '10.000đ' : '9.000đ'}</strong>.
             </div>
 
             <button
@@ -404,11 +404,11 @@ export default function TaiKhoanPage() {
 
               <Link
                 to="/khieu-nai"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '8px', background: '#f8fafc', color: '#1e293b', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 600, border: '1px solid #e2e8f0' }}
+                style={{ display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '8px', background: '#f8fafc', color: '#1e293b', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 600 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <FileText size={18} color="#f59e0b" />
-                  <span>Gửi khiếu nại đơn hàng (UC17 - BR-25)</span>
+                  <span>Gửi khiếu nại đơn hàng</span>
                 </div>
                 <span style={{ color: '#94a3b8' }}>&rarr;</span>
               </Link>
@@ -419,7 +419,7 @@ export default function TaiKhoanPage() {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Bike size={18} color="#0284c7" />
-                  <span>Đăng ký làm Shipper nội khu NEU (UC27)</span>
+                  <span>Đăng ký làm Shipper nội khu NEU</span>
                 </div>
                 <span style={{ color: '#0284c7' }}>&rarr;</span>
               </Link>
@@ -430,7 +430,7 @@ export default function TaiKhoanPage() {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Bike size={18} color="#059669" />
-                  <span>Đăng ký làm Shipper nội khu (UC27 - BR-03)</span>
+                  <span>Tìm hiểu chương trình Shipper</span>
                 </div>
                 <span style={{ color: '#94a3b8' }}>&rarr;</span>
               </Link>

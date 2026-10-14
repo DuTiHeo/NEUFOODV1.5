@@ -34,7 +34,7 @@ export default function CanteenBaoCaoPage() {
           <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#059669', margin: '8px 0 0' }}>
             {formatPrice(totalRevenue)}
           </p>
-          <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Tính trên các đơn hoàn thành (BR-26, BR-28)</span>
+          <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Tính trên các đơn hoàn thành</span>
         </div>
 
         <div style={{ background: '#ffffff', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
@@ -64,17 +64,17 @@ export default function CanteenBaoCaoPage() {
             <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: 600 }}>Đánh giá trung bình</span>
             <Star size={20} color="#eab308" />
           </div>
-          <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#eab308', margin: '8px 0 0' }}>
-            4.8 ★
+          <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#eab308', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            4.8 <Star size={20} fill="#eab308" color="#eab308" />
           </p>
           <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Trên 128 lượt đánh giá</span>
         </div>
       </div>
 
-      {/* Reviews & Feedback Section (UC26) */}
+      {/* Reviews & Feedback Section */}
       <div style={{ background: '#ffffff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0' }}>
         <h3 style={{ fontSize: '1.125rem', fontWeight: 700, margin: '0 0 16px', color: '#0f172a' }}>
-          Đánh giá &amp; Phản hồi từ sinh viên (UC26)
+          Đánh giá &amp; Phản hồi từ sinh viên
         </h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -86,8 +86,10 @@ export default function CanteenBaoCaoPage() {
                   <strong style={{ fontSize: '0.875rem' }}>{rev.customer}</strong>
                   <span style={{ fontSize: '0.75rem', color: '#64748b' }}>({rev.dish})</span>
                 </div>
-                <div style={{ color: '#eab308', fontWeight: 700, fontSize: '0.875rem' }}>
-                  {'★'.repeat(rev.stars)}
+                <div style={{ display: 'flex', gap: '2px' }}>
+                  {Array.from({ length: rev.stars }).map((_, i) => (
+                    <Star key={i} size={14} fill="#eab308" color="#eab308" />
+                  ))}
                 </div>
               </div>
               <p style={{ margin: 0, fontSize: '0.875rem', color: '#334155', lineHeight: 1.4 }}>

@@ -99,7 +99,7 @@ export default function DonHangPage() {
     try {
       customerCancelOrder(neuOrder.id, cancelReason || 'Khách đổi ý muốn hủy đơn')
       setCancelModalOpen(false)
-      setActionSuccessToast('Đã hủy đơn hàng thành công (BR-16).')
+      setActionSuccessToast('Đã hủy đơn hàng thành công.')
     } catch (err: any) {
       setCancelError(err.message || 'Không thể hủy đơn hàng.')
     }
@@ -108,7 +108,7 @@ export default function DonHangPage() {
   function handleConfirmReceivedClick() {
     if (!neuOrder) return
     customerConfirmReceived(neuOrder.id)
-    setActionSuccessToast('Cảm ơn bạn đã xác nhận đã nhận hàng (BR-22)!')
+    setActionSuccessToast('Cảm ơn bạn đã xác nhận đã nhận hàng!')
   }
 
   function handleComplaintSubmit() {
@@ -121,7 +121,7 @@ export default function DonHangPage() {
     })
     setComplaintModalOpen(false)
     setComplaintSuccess(true)
-    setActionSuccessToast('Đã gửi khiếu nại tới Quản trị viên (UC17, BR-25).')
+    setActionSuccessToast('Đã gửi khiếu nại tới Ban Quản Trị Hệ Thống.')
   }
 
   function handleReviewSaved(data: any) {
@@ -137,14 +137,14 @@ export default function DonHangPage() {
   // Stepper calculations for the 11 states
   const isAtCanteen = neuOrder?.receiveType === 'at_canteen'
 
-  // Define steps according to BR-18, BR-29, BR-30
+  // Define steps for order progress
   const stepsList = useMemo(() => {
     if (isAtCanteen) {
       return [
         { key: 'created', label: 'Tạo đơn' },
-        { key: 'awaiting_canteen', label: 'Chờ Canteen nhận (BR-15)' },
+        { key: 'awaiting_canteen', label: 'Chờ Canteen nhận' },
         { key: 'preparing', label: 'Đang nấu món' },
-        { key: 'ready_for_handover', label: 'Sẵn sàng tại quầy (BR-31)' },
+        { key: 'ready_for_handover', label: 'Sẵn sàng tại quầy' },
         { key: 'completed', label: 'Đã nhận & Hoàn thành' },
       ]
     }
@@ -155,7 +155,7 @@ export default function DonHangPage() {
       { key: 'ready_for_handover', label: 'Sẵn sàng bàn giao' },
       { key: 'shipper_assigned', label: 'Đã có Shipper' },
       { key: 'delivering', label: 'Đang giao tới phòng' },
-      { key: 'delivered', label: neuOrder?.paymentMethod === 'cod' ? 'Giao & Thu COD (BR-34)' : 'Đã giao tới phòng' },
+      { key: 'delivered', label: neuOrder?.paymentMethod === 'cod' ? 'Giao hàng & Thu tiền' : 'Đã giao tới phòng' },
       { key: 'completed', label: 'Hoàn tất' },
     ]
   }, [isAtCanteen, neuOrder?.paymentMethod])
@@ -189,18 +189,18 @@ export default function DonHangPage() {
       case 'awaiting_canteen':
         return {
           title: 'Chờ Canteen A2 xác nhận',
-          lead: 'Canteen A2 đang kiểm tra đơn trong vòng 10 phút (BR-15). Bạn vẫn có thể hủy đơn lúc này.',
+          lead: 'Canteen A2 đang kiểm tra và chuẩn bị đơn hàng. Bạn vẫn có thể hủy đơn lúc này.',
         }
       case 'preparing':
         return {
           title: 'Nhà bếp đang chuẩn bị món',
-          lead: 'Đầu bếp Canteen A2 đang nấu món ăn nóng sốt. Đơn không thể hủy từ bước này theo quy định BR-16.',
+          lead: 'Đầu bếp đang nấu món ăn nóng sốt. Đơn hàng không thể hủy từ bước này.',
         }
       case 'ready_for_handover':
         return {
           title: isAtCanteen ? 'Món đã sẵn sàng tại quầy!' : 'Sẵn sàng bàn giao cho Shipper',
           lead: isAtCanteen
-            ? 'Vui lòng tới quầy Canteen A2 đọc mã đơn để lấy đồ. Canteen giữ món tối đa 30 phút (BR-31).'
+            ? 'Vui lòng tới quầy Canteen A2 đọc mã đơn để lấy đồ. Canteen giữ món tối đa 30 phút.'
             : 'Món ăn đã đóng gói xong. Hệ thống đang điều phối Shipper nội khu tới lấy.',
         }
       case 'shipper_assigned':
@@ -218,23 +218,23 @@ export default function DonHangPage() {
         return {
           title: 'Đơn hàng đã được giao tới nơi!',
           lead: neuOrder?.paymentMethod === 'cod'
-            ? 'Shipper đã bàn giao đồ và thu tiền mặt thành công (BR-34). Vui lòng xác nhận nhận hàng.'
+            ? 'Shipper đã bàn giao đồ và nhận tiền mặt. Vui lòng xác nhận nhận hàng.'
             : 'Shipper đã giao đồ tới phòng học. Vui lòng xác nhận đã nhận hàng.',
         }
       case 'completed':
         return {
           title: 'Đơn hàng đã hoàn thành',
-          lead: 'Cảm ơn bạn đã sử dụng NEUFood! Bạn có thể đánh giá hoặc gửi khiếu nại trong vòng 24h (BR-25).',
+          lead: 'Cảm ơn bạn đã sử dụng NEUFood! Bạn có thể đánh giá hoặc gửi khiếu nại trong vòng 24 giờ nếu có sự cố.',
         }
       case 'cancelled':
         return {
           title: 'Đơn hàng đã hủy',
-          lead: `Lý do: ${neuOrder?.cancelReason || 'Theo yêu cầu của khách hàng'}. ${neuOrder?.paymentMethod === 'qr_online' ? 'Tiền thanh toán online sẽ được hoàn 100% trong vòng 2 ngày (BR-17).' : ''}`,
+          lead: `Lý do: ${neuOrder?.cancelReason || 'Theo yêu cầu của khách hàng'}. ${neuOrder?.paymentMethod === 'qr_online' ? 'Tiền thanh toán online sẽ được hoàn tự động trong 1-2 ngày làm việc.' : ''}`,
         }
       case 'incident':
         return {
           title: 'Đơn hàng gặp sự cố giao hàng',
-          lead: `Shipper báo cáo sự cố: "${neuOrder?.incidentReason || 'Không liên lạc được'}". Quản trị viên đang thụ lý xử lý (UC38, BR-36).`,
+          lead: `Shipper báo cáo sự cố: "${neuOrder?.incidentReason || 'Không liên lạc được'}". Quản trị viên đang thụ lý xử lý.`,
         }
       default:
         return {
@@ -277,7 +277,7 @@ export default function DonHangPage() {
             <Link className={styles.back} to="/lich-su-don">
               ← Danh sách đơn hàng
             </Link>
-            <span style={{ fontSize: '0.8125rem', color: '#64748b', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.8125rem', color: '#0f172a', fontWeight: 700 }}>
               Mã tra cứu: #{neuOrder ? neuOrder.code : orderId}
             </span>
           </div>
@@ -293,12 +293,12 @@ export default function DonHangPage() {
             <p className={styles.lead}>{statusInfo.lead}</p>
           </header>
 
-          {/* SLA Warning (BR-23) */}
+          {/* Delivery target notice */}
           {['delivering', 'picked_up'].includes(currentStatus) ? (
             <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px', padding: '10px 14px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="material-symbols-outlined" style={{ color: '#d97706', fontSize: '20px' }}>timer</span>
               <span style={{ fontSize: '0.8125rem', color: '#92400e' }}>
-                <strong>Mục tiêu giao hàng SLA:</strong> Tối đa 20 phút từ lúc Canteen xác nhận đến lúc giao tận phòng (BR-23).
+                <strong>Thời gian giao hàng:</strong> Dự kiến tối đa 20 phút từ lúc Canteen xác nhận đến lúc giao tận phòng.
               </span>
             </div>
           ) : null}
@@ -318,12 +318,12 @@ export default function DonHangPage() {
             <section style={{ background: '#fee2e2', border: '1px solid #fca5a5', borderRadius: '12px', padding: '16px', marginBottom: '24px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
               <span className="material-symbols-outlined" style={{ color: '#dc2626', fontSize: '28px' }}>report_problem</span>
               <div>
-                <strong style={{ color: '#991b1b', fontSize: '1rem', display: 'block' }}>Sự cố giao hàng (BR-36)</strong>
+                <strong style={{ color: '#991b1b', fontSize: '1rem', display: 'block' }}>Sự cố giao hàng</strong>
                 <p style={{ margin: '4px 0 0', fontSize: '0.875rem', color: '#7f1d1d' }}>
                   Lý do báo cáo: {neuOrder?.incidentReason}
                 </p>
                 <p style={{ margin: '4px 0 0', fontSize: '0.75rem', color: '#991b1b' }}>
-                  Admin đang thụ lý đối soát. Nếu có hành vi boom hàng, tài khoản sẽ bị đưa vào Blacklist COD.
+                  Bộ phận hỗ trợ đang đối soát và xử lý sự cố.
                 </p>
               </div>
             </section>
@@ -389,7 +389,7 @@ export default function DonHangPage() {
 
           {/* Action buttons row (Hủy đơn, Xác nhận nhận hàng, Gửi khiếu nại) */}
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '24px' }}>
-            {/* 1. Nút HỦY ĐƠN (BR-16) */}
+            {/* 1. Nút HỦY ĐƠN */}
             {!isCancelled && !isCompleted ? (
               canCancel ? (
                 <button
@@ -410,11 +410,11 @@ export default function DonHangPage() {
                   }}
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>cancel</span>
-                  Hủy đơn hàng (BR-16)
+                  Hủy đơn hàng
                 </button>
               ) : (
                 <div
-                  title="Canteen đã bắt đầu chuẩn bị món, không thể hủy theo quy định BR-16"
+                  title="Canteen đã bắt đầu chuẩn bị món, không thể hủy đơn"
                   style={{
                     padding: '8px 14px',
                     borderRadius: '8px',
@@ -429,12 +429,12 @@ export default function DonHangPage() {
                   }}
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>lock</span>
-                  Không thể hủy (Quán đã nấu món - BR-16)
+                  Không thể hủy (Quán đã nấu món)
                 </div>
               )
             ) : null}
 
-            {/* 2. Nút XÁC NHẬN ĐÃ NHẬN HÀNG (BR-22) */}
+            {/* 2. Nút XÁC NHẬN ĐÃ NHẬN HÀNG */}
             {canConfirmReceived && !isCompleted ? (
               <button
                 type="button"
@@ -455,11 +455,11 @@ export default function DonHangPage() {
                 }}
               >
                 <span className="material-symbols-outlined">task_alt</span>
-                Xác nhận đã nhận hàng (BR-22)
+                Xác nhận đã nhận hàng
               </button>
             ) : null}
 
-            {/* 3. Nút GỬI KHIẾU NẠI (BR-25, UC17) */}
+            {/* 3. Nút GỬI KHIẾU NẠI */}
             {canComplain ? (
               <button
                 type="button"
@@ -479,12 +479,12 @@ export default function DonHangPage() {
                 }}
               >
                 <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>campaign</span>
-                Gửi khiếu nại trong 24h (BR-25)
+                Gửi khiếu nại trong 24h
               </button>
             ) : neuOrder?.hasComplaint ? (
               <div style={{ padding: '8px 12px', borderRadius: '8px', background: '#ecfdf5', color: '#065f46', fontSize: '0.75rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>verified</span>
-                Đã gửi khiếu nại (Admin đang xử lý - UC38)
+                Đã gửi khiếu nại (Admin đang xử lý)
               </div>
             ) : null}
           </div>
@@ -586,7 +586,7 @@ export default function DonHangPage() {
                         : 'Khuôn viên Đại học Kinh tế Quốc dân'}
                   </p>
                   <p className={styles.infoSub}>
-                    {isAtCanteen ? 'Giữ đồ tối đa 30 phút (BR-31)' : 'Giao nội khu NEU'}
+                    {isAtCanteen ? 'Giữ đồ tối đa 30 phút' : 'Giao nội khu NEU'}
                   </p>
                 </div>
               </div>
@@ -627,13 +627,13 @@ export default function DonHangPage() {
         </aside>
       </div>
 
-      {/* MODAL HỦY ĐƠN HÀNG (BR-16) */}
+      {/* MODAL HỦY ĐƠN HÀNG */}
       {cancelModalOpen ? (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '16px' }}>
           <div style={{ background: '#ffffff', borderRadius: '12px', maxWidth: '420px', width: '100%', padding: '24px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ margin: '0 0 12px', fontSize: '1.125rem', color: '#b91c1c' }}>Xác nhận hủy đơn hàng (BR-16)</h3>
+            <h3 style={{ margin: '0 0 12px', fontSize: '1.125rem', color: '#b91c1c' }}>Xác nhận hủy đơn hàng</h3>
             <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '16px', lineHeight: 1.5 }}>
-              Khách hàng chỉ được hủy khi Canteen chưa bắt đầu chuẩn bị món. Nếu đơn đã thanh toán online, bạn sẽ được hoàn tiền 100% trong vòng 2 ngày (BR-17).
+              Khách hàng chỉ có thể hủy khi Canteen chưa bắt đầu nấu món. Tiền thanh toán online sẽ được hoàn tự động trong 1-2 ngày làm việc.
             </p>
 
             <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '6px' }}>
@@ -671,13 +671,13 @@ export default function DonHangPage() {
         </div>
       ) : null}
 
-      {/* MODAL GỬI KHIẾU NẠI (BR-25, UC17) */}
+      {/* MODAL GỬI KHIẾU NẠI */}
       {complaintModalOpen ? (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '16px' }}>
           <div style={{ background: '#ffffff', borderRadius: '12px', maxWidth: '460px', width: '100%', padding: '24px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ margin: '0 0 8px', fontSize: '1.125rem', color: '#1e293b' }}>Gửi khiếu nại đơn hàng (UC17)</h3>
+            <h3 style={{ margin: '0 0 8px', fontSize: '1.125rem', color: '#1e293b' }}>Gửi khiếu nại đơn hàng</h3>
             <p style={{ fontSize: '0.8125rem', color: '#64748b', marginBottom: '16px', lineHeight: 1.4 }}>
-              Khiếu nại được tiếp nhận trong vòng <strong>24 giờ</strong> sau khi đơn hoàn thành (BR-25). Quản trị viên sẽ phân xử và hoàn tiền nếu lỗi do Canteen hoặc Shipper (BR-37).
+              Khiếu nại được tiếp nhận trong vòng <strong>24 giờ</strong> sau khi đơn hoàn thành. Quản trị viên sẽ xác minh và hoàn tiền nếu có lỗi từ Canteen hoặc Shipper.
             </p>
 
             <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '6px' }}>
@@ -702,7 +702,7 @@ export default function DonHangPage() {
               rows={3}
               value={complaintDesc}
               onChange={(e) => setComplaintDesc(e.target.value)}
-              placeholder="Mô tả cụ thể sự cố để Admin đối soát..."
+              placeholder="Mô tả cụ thể sự cố để bộ phận hỗ trợ đối soát..."
               style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.875rem', marginBottom: '16px' }}
             />
 

@@ -20,7 +20,7 @@ export function CartProvider({ children }) {
       /* ignore */
     }
 
-    // Merge any pending additions coming from static pages (e.g. RANDOM.html)
+    // Merge any pending additions coming from static pages
     try {
       const pendingRaw = sessionStorage.getItem(PENDING_KEY)
       if (pendingRaw) {
@@ -70,7 +70,7 @@ export function CartProvider({ children }) {
 
   const add = useCallback((id, delta = 1) => {
     if (delta > 0 && !isDishAvailable(id)) {
-      alert('Món này hiện đang HẾT HÀNG tại Canteen A2 (BR-05). Vui lòng chọn món khác!')
+      alert('Món này hiện đang hết hàng tại Canteen A2. Vui lòng chọn món khác!')
       return
     }
 
@@ -88,7 +88,7 @@ export function CartProvider({ children }) {
   const setQuantity = useCallback((id, qty) => {
     const q = Math.min(MAX_QTY_PER_DISH, Math.max(0, Math.floor(Number(qty))))
     if (q > 0 && !isDishAvailable(id)) {
-      alert('Món này hiện đang HẾT HÀNG tại Canteen A2 (BR-05). Vui lòng chọn món khác!')
+      alert('Món này hiện đang hết hàng tại Canteen A2. Vui lòng chọn món khác!')
       return
     }
 

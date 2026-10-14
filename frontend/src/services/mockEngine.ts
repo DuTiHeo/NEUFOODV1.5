@@ -662,7 +662,7 @@ class NeuMockEngine {
     const s = shippers.find((it) => it.id === shipperId)
     if (!s) throw new Error('Không tìm thấy tài xế.')
     if (!s.isOnline) throw new Error('Bạn cần bật trạng thái Sẵn sàng nhận đơn.')
-    if (s.activeOrdersCount >= 5) throw new Error('Bạn đang giao tối đa 5 đơn (BR-19).')
+    if (s.activeOrdersCount >= 5) throw new Error('Bạn đang giao tối đa 5 đơn.')
 
     const orders = this.getOrders()
     const ord = orders.find((o) => o.id === orderId)
@@ -672,7 +672,7 @@ class NeuMockEngine {
     const config = this.getConfig()
     if (ord.paymentMethod === 'cod') {
       if (s.currentAdvanceAmount + ord.subtotal > config.shipperMaxAdvanceLimit) {
-        throw new Error(`Đơn này vượt quá hạn mức ứng tiền còn lại (${config.shipperMaxAdvanceLimit.toLocaleString()}đ - BR-35).`)
+        throw new Error(`Đơn này vượt quá hạn mức ứng tiền còn lại (${config.shipperMaxAdvanceLimit.toLocaleString()}đ).`)
       }
       s.currentAdvanceAmount += ord.subtotal
     }
@@ -766,7 +766,7 @@ class NeuMockEngine {
 
     // BR-16: Chỉ được hủy khi Canteen chưa chuẩn bị
     if (!['created', 'awaiting_payment', 'awaiting_canteen', 'confirmed'].includes(ord.status)) {
-      throw new Error('Không thể hủy vì Canteen đã bắt đầu chuẩn bị món (BR-16).')
+      throw new Error('Không thể hủy vì Canteen đã bắt đầu chuẩn bị món.')
     }
 
     ord.status = 'cancelled'
